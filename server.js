@@ -11,3 +11,6 @@ app.get('/', (req, res) => {
 
 
 
+app.post('/quotes',(req,rest)=>{
+    console.log(`Response received on '/quotes'`)
+})
