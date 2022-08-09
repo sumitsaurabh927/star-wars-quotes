@@ -48,12 +48,14 @@ MongoClient.connect(connectionString)
         const allQuotes = db.collection('quotes');
 
 
+        // ***********************************************************
+        // CRUD DB handlers
 
         app.post('/quotes', (req, res) => {
             // console.log(`Response received on '/quotes'`)
             // console.log('.');
             // console.log(req.body)
-        
+
             // sending stuff to the DB
             allQuotes.insertOne(req.body)
                 .then(result => {
@@ -62,6 +64,18 @@ MongoClient.connect(connectionString)
                 }).catch(err => console.error(err));
         })
 
+        // reading stuff from DB 
+        // using find method to read everything from the DB and converting data to an array
+        // by default the find method returns a 'cursor' object that contains a lot of additional stuff
+
+        app.get('/', (req, res) => {
+            db.collection('quotes').find().toArray()
+                .then(result => console.log(result))
+                .catch(err => console.error(err));
+
+
+            res.sendFile(__dirname + '/index.html')
+        })
 
 
     }).catch(err => console.error(err));
@@ -72,9 +86,9 @@ MongoClient.connect(connectionString)
 app.listen(3001, () => console.log(`listening on port 3000`));
 
 // GET request handling
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-})
+// app.get('/', (req, res) => {
+//     res.sendFile(__dirname + '/index.html')
+// })
 
 // POST request handling
 // app.post('/quotes', (req, res) => {
