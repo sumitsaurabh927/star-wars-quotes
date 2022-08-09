@@ -15,6 +15,26 @@ console.log('may node be with you!');
 // using body-parser middleware with express for tidying up req object
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// connecting to MongoDB using MongoDB client method
+const MongoClient = require('mongodb').MongoClient;
+
+let connectionString = 'mongodb+srv://starwars:8Jzi35na2qa9myZe@cluster0.jwijhwf.mongodb.net/?retryWrites=true&w=majority';
+
+// non promise way to connect to DB and catch error
+
+// MongoClient.connect(connectionString, (err, client) => {
+//     if (err) return console.error(err);
+//     console.log('connected to database');
+// })
+
+// promise way of connecting to DB and catching error
+MongoClient.connect(connectionString)
+    .then(random => {
+        console.log('connected to DB');
+    })
+    .catch(err => console.error(err));
+
 // *************************************************************
 // CRUD handlers
 // listen on PORT for http requests
