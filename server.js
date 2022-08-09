@@ -2,6 +2,12 @@
 const express = require('express');
 const app = express();
 
+// using ejs
+// place this before app.use(), app.get() or any other app routes
+app.set('view engine', 'ejs')
+
+
+
 // using 'body-parser' to extract data sent in the html form element
 const bodyParser = require('body-parser');
 
@@ -70,12 +76,23 @@ MongoClient.connect(connectionString)
 
         app.get('/', (req, res) => {
             db.collection('quotes').find().toArray()
-                .then(result => console.log(result))
+                .then(result => {
+                    // console.log(result)
+
+                    // dynamic HTML using EJS
+                    // view = file inside the 'views' folder
+                    // locals = the data passed into the file
+                    res.render('index.ejs', { quotes: result });
+                })
                 .catch(err => console.error(err));
 
+            // static HTML
+            // res.sendFile(__dirname + '/index.html')
 
-            res.sendFile(__dirname + '/index.html')
+
         })
+
+
 
 
     }).catch(err => console.error(err));
@@ -83,7 +100,7 @@ MongoClient.connect(connectionString)
 // *************************************************************
 // CRUD handlers
 // listen on PORT for http requests
-app.listen(3001, () => console.log(`listening on port 3000`));
+app.listen(3005, () => console.log(`listening on port 3000`));
 
 // GET request handling
 // app.get('/', (req, res) => {
