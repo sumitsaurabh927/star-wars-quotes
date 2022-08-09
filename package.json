@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sumitsaurabh927/star-wars-quotes/issues"
   },
-  "homepage": "https://github.com/sumitsaurabh927/star-wars-quotes#readme"
+  "homepage": "https://github.com/sumitsaurabh927/star-wars-quotes#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
